@@ -1,0 +1,7 @@
+h1 Players
+- if @players.any?
+  ul
+  - for player in @players
+    li = link_to player.name, player
+
+  = link_to "New Player", new_player_path

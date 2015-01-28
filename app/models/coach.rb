@@ -3,4 +3,5 @@ class Coach < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :player_lineups
+  has_many :players
 end

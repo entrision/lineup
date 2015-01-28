@@ -1,0 +1,8 @@
+fieldset
+  = f.object.player.name
+  br
+  = f.hidden_field :player_id
+  = f.label :position, "Lineup Position"
+  = f.number_field :position
+  = f.check_box :_destroy
+  = f.label :destroy, "Remove Player"

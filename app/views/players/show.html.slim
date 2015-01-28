@@ -1,0 +1,11 @@
+h1 Showing Player
+
+p Name: #{@player.name}
+
+- if @player.win_percentage
+  p Win Percentage: #{@player.win_percentage}
+
+- if @player.player_lineups.empty?
+  p This player does'nt belong to any lineups #{ link_to "Add to a lineup", edit_player_path }
+
+= link_to "Edit", edit_player_path

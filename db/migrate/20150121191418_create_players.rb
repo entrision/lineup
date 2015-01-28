@@ -4,6 +4,7 @@ class CreatePlayers < ActiveRecord::Migration
       t.string :name
       t.integer :win, default: 0
       t.integer :loss, default: 0
+      t.references :coach, index: true
 
       t.timestamps null: false
     end

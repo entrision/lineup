@@ -55,8 +55,11 @@ ActiveRecord::Schema.define(version: 20150121202205) do
     t.string   "name"
     t.integer  "win",        default: 0
     t.integer  "loss",       default: 0
+    t.integer  "coach_id"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  add_index "players", ["coach_id"], name: "index_players_on_coach_id", using: :btree
 
 end
