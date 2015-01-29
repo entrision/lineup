@@ -1,13 +1,17 @@
-h1 Showing a Lineup
-p
-  strong Name: #{@lineup.title} 
-  = link_to 'Edit', edit_player_lineup_path
-  = link_to 'Delete', @lineup, method: :delete, data: { confirm: "Are you sure you want to delete #{@lineup.title}?" }
+h2 Lineup: #{@lineup.title}
 
 p
-  | Players in Lineup
-  - if @lineup.players.any?
-    ul
-    - for player in @lineup.players
-      li = link_to player.name, player
-  = link_to "Add Player", edit_player_lineup_path
+  = link_to "Enter Match Results", edit_multiple_path(@lineup)
+
+h4 Players:
+- if @lineup.players.any?
+  ul
+  - for player in @lineup.players
+    li
+      = link_to player.name, player
+      |  | #{player.win_percentage}
+      |  | Wins: #{player.win} - Losses: #{ player.loss }
+
+p
+  br
+  | #{ link_to "Edit Lineup", edit_player_lineup_path} | #{ link_to 'Delete Lineup', @lineup, method: :delete, data: { confirm: "Are you sure you want to delete #{@lineup.title}?" } }

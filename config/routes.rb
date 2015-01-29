@@ -4,7 +4,13 @@ Rails.application.routes.draw do
   root 'player_lineups#index'
 
   resources :player_lineups, path: "lineups"
-  resources :players
+  resources :players do
+    collection do
+      put :update_multiple
+    end
+  end
+
+  get 'match_results/:id' => 'players#edit_multiple', as: "edit_multiple"
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

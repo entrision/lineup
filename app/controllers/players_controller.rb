@@ -37,6 +37,22 @@ class PlayersController < ApplicationController
   def destroy
   end
 
+  def edit_multiple
+    @lineup = PlayerLineup.find(params[:id])
+    @players = @lineup.players
+  end
+
+  def update_multiple
+    lineup = PlayerLineup.find(params[:lineup_id])
+    @players = Player.update(params[:players].keys, params[:players].values)
+    @players.reject! { |p| p.errors.empty? }
+    if @players.empty?
+      redirect_to lineup
+    else
+      render "edit_multiple"
+    end
+  end
+
   private
     def set_player
       @player = Player.find(params[:id])

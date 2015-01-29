@@ -16,4 +16,16 @@ class Player < ActiveRecord::Base
       self.win.fdiv(self.matches_played).round(3)
     end
   end
+
+  def win_loss=(value)
+    if value.to_i == 1
+      self.win += 1
+    else
+      self.loss += 1
+    end
+  end
+
+  def win_loss
+    1
+  end
 end

@@ -1,0 +1,12 @@
+h2 Enter Match Results for Lineup
+
+= form_tag update_multiple_players_path, method: :put do
+  = hidden_field_tag :lineup_id, @lineup.id
+  - @players.each do |player|
+    = fields_for "players[]", player do |f|
+      = player.name
+      = f.label :win_loss, class: "label-switch" do
+        = f.check_box :win_loss
+        .checkbox
+    br
+  = submit_tag "Enter Results"
