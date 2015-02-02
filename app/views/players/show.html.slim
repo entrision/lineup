@@ -6,7 +6,7 @@ h2 Showing #{ @player.name }
   p No match results for this player.
 
 - if @player.player_lineups.empty?
-  p This player does'nt belong to any lineups #{ link_to "Add to a lineup", lineups_path }
+  p This player does'nt belong to any lineups #{ link_to "Add to a lineup", player_lineups_path }
 - else
   p
     | #{@player.name} is in these lineups:
