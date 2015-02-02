@@ -4,9 +4,9 @@
   $base-background-color: white !default;
   //////////////////////////////////////////////////////////////////////////////////
 
-  $switch-width: 22px;
+  $switch-width: 40px;
   $switch-padding: 2px;
-  $switch-height: 12px;
+  $switch-height: 20px;
   $switch-radius: $switch-height;
   $knob-size: $switch-height - ($switch-padding * 2);
   $knob-radius: $switch-height - ($switch-padding * 2);
@@ -33,6 +33,7 @@
       cursor: pointer;
       height: $switch-height;
       margin: 0;
+      margin-top: 8px;
       padding: 0;
       position: relative;
       width: $switch-width;
@@ -64,7 +65,7 @@
 
     &:checked {
       + .checkbox {
-        background: $base-accent-color;
+        background: $green;
 
         &:before {
           @include transform(scale(0));
@@ -75,5 +76,15 @@
         }
       }
     }
+  }
+}
+
+.player_row {
+  .left {
+    @include span_columns(4);
+  }
+  .right {
+    @include span_columns(8);
+    @include omega();
   }
 }
