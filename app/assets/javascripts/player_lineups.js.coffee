@@ -2,9 +2,23 @@ $(document).on "page:change", ->
 
   $('.add_player').on 'click', (event) ->
     form_markup = $(this).data("fields")
-    $('form fieldset').last().after(form_markup)
-    $('form fieldset').last().find('.position_hidden').val($('fieldset').length)
+    $('.position_fields').append(form_markup)
     $(this).hide()
+
+    $('fieldset').last().find('.move_player_up').on 'click', (event) ->
+      current_fieldset = $(this).parent('fieldset')
+      target_fieldset = $($(current_fieldset)).prevAll('fieldset').first()
+      swap_positions($(current_fieldset), $(target_fieldset), "up")
+      event.preventDefault()
+
+    $('fieldset').last().find('.move_player_down').on 'click', (event) ->
+      current_fieldset = $(this).parent('fieldset')
+      target_fieldset = $($(current_fieldset)).nextAll('fieldset').first()
+      swap_positions($(current_fieldset), $(target_fieldset), "down")
+      event.preventDefault()
+
+    $('form fieldset').last().find('.position_hidden').val($('fieldset').length)
+
     event.preventDefault()
 
   $('.move_player_up').on 'click', (event) ->

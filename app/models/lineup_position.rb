@@ -2,7 +2,7 @@ class LineupPosition < ActiveRecord::Base
   belongs_to :player
   belongs_to :player_lineup
 
-  validates_presence_of :player, :player_lineup
+  validates_presence_of :player
   validates_uniqueness_of :player_id, scope: :player_lineup
   validates_with LineupPositionValidator, on: :update, if: :validation_needed?
 

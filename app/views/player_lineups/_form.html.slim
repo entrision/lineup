@@ -10,8 +10,9 @@
   = f.label :title
   = f.text_field :title
   br
-  = f.fields_for :lineup_positions do |pf|
-    = render "lineup_positions_fields", f: pf
+  .position_fields
+    = f.fields_for :lineup_positions do |pf|
+      = render "lineup_positions_fields", f: pf
 
   - if @pnil
     p Add Player(s) to Lineup
