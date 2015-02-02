@@ -5,7 +5,7 @@ h1 Lineups
   - for lineup in @lineups
     li = link_to lineup.title, lineup
 
-  = link_to "New Lineup", new_player_lineup_path
+  = link_to "Create Lineup", new_player_lineup_path
 
 - else
   = render "create_lineup"
