@@ -6,11 +6,14 @@ p
 h4 Players:
 - if @lineup.players.any?
   ul
-  - for player in @lineup.players
-    li
-      = link_to player.name, player
-      |  | #{player.win_percentage}
-      |  | Wins: #{player.win} - Losses: #{ player.loss }
+    .player_row
+      - for player in @lineup.players
+        li
+          .left
+            = link_to player.name, player
+          .right
+            |  Wins: #{player.win}  Losses: #{ player.loss }
+            |  | Win %: #{player.win_percentage}
 
 p
   br
