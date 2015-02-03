@@ -3,9 +3,9 @@ fieldset
   h6 Win percentage: #{f.object.player.win_percentage}
   = f.hidden_field :player_id
   = f.hidden_field :position, class: "position_hidden"
-  = button_tag "Move Up", class: "move_player_up"
+  = button_tag "Move Up", class: "move_player", data: {direction: "up"}
   |   
-  = button_tag "Move Down", class: "move_player_down"
+  = button_tag "Move Down", class: "move_player", data: {direction: "down"}
   = f.label :_destroy, "Remove" do
     = f.check_box :_destroy
     span Remove from lineup

@@ -5,33 +5,16 @@ $(document).on "page:change", ->
     $('.position_fields').append(form_markup)
     $(this).hide()
 
-    $('fieldset').last().find('.move_player_up').on 'click', (event) ->
-      current_fieldset = $(this).parent('fieldset')
-      target_fieldset = $($(current_fieldset)).prevAll('fieldset').first()
-      swap_positions($(current_fieldset), $(target_fieldset), "up")
-      event.preventDefault()
-
-    $('fieldset').last().find('.move_player_down').on 'click', (event) ->
-      current_fieldset = $(this).parent('fieldset')
-      target_fieldset = $($(current_fieldset)).nextAll('fieldset').first()
-      swap_positions($(current_fieldset), $(target_fieldset), "down")
-      event.preventDefault()
-
     $('form fieldset').last().find('.position_hidden').val($('fieldset').length)
-
     event.preventDefault()
 
-  $('.move_player_up').on 'click', (event) ->
+  $('.position_fields').on 'click', '.move_player', (event) ->
     current_fieldset = $(this).parent('fieldset')
-    target_fieldset = $($(current_fieldset)).prevAll('fieldset').first()
-    swap_positions($(current_fieldset), $(target_fieldset), "up")
-    event.preventDefault()
-
-
-  $('.move_player_down').on 'click', (event) ->
-    current_fieldset = $(this).parent('fieldset')
-    target_fieldset = $($(current_fieldset)).nextAll('fieldset').first()
-    swap_positions($(current_fieldset), $(target_fieldset), "down")
+    if $(this).data('direction') == "up"
+      target_fieldset = $($(current_fieldset)).prevAll('fieldset').first()
+    else
+      target_fieldset = $($(current_fieldset)).nextAll('fieldset').first()
+    swap_positions($(current_fieldset), $(target_fieldset), $(this).data('direction'))
     event.preventDefault()
 
   swap_positions = (original, target, direction) ->
