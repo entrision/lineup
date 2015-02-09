@@ -84,4 +84,33 @@ RSpec.describe LineupPosition, type: :model do
 
     end
   end
+
+  describe "mandatory move" do
+    let!(:player1) { create(:player, win: 3, loss: 5) }
+    let!(:player2) { create(:player, win: 7, loss: 1) }
+
+    let!(:lineup1)  { create(:player_lineup) }
+
+    let!(:position1) { create(:lineup_position, position: 1, player: player1, player_lineup: lineup1, player_match_count_at_change: 2) }
+    let!(:position2) { create(:lineup_position, position: 2, player: player2, player_lineup: lineup1, player_match_count_at_change: 2) }
+
+    context "with 20% win difference" do
+      before {
+        position1.player_match_count_at_change = 2
+        position2.player_match_count_at_change = 2
+        position1.save
+        position2.save
+      }
+
+      it "automatically moves players" do
+        position1.check_and_move_mandatory
+        position1.reload
+        position2.reload
+        expect(position1.position).to eq(2)
+        expect(position2.position).to eq(1)
+        expect(position1.locked?).to eq(true)
+      end
+    end
+
+  end
 end

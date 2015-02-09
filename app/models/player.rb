@@ -9,6 +9,10 @@ class Player < ActiveRecord::Base
     self.win + self.loss
   end
 
+  def matches_played?
+    self.matches_played > 0 ? true : false
+  end
+
   def win_percentage
     if self.matches_played.zero?
       nil
@@ -28,4 +32,5 @@ class Player < ActiveRecord::Base
   def win_loss
     1
   end
+
 end

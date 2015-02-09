@@ -38,9 +38,9 @@ ActiveRecord::Schema.define(version: 20150204034619) do
     t.integer  "player_id"
     t.integer  "player_lineup_id"
     t.integer  "position"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.integer  "player_match_count_at_change"
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.integer  "player_match_count_at_change", default: 0
     t.boolean  "restrict_movement"
   end
 

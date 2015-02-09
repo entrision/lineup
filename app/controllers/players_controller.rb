@@ -20,7 +20,7 @@ class PlayersController < ApplicationController
     @player = Player.new(player_params)
 
     if @player.save
-      redirect_to @player, notice: "Player created."
+      redirect_to players_url, notice: "Player created."
     else
       render :new
     end
@@ -35,6 +35,8 @@ class PlayersController < ApplicationController
   end
 
   def destroy
+    @player.destroy
+    redirect_to players_path, notice: "Player successfully removed."
   end
 
   def edit_multiple
@@ -45,6 +47,11 @@ class PlayersController < ApplicationController
   def update_multiple
     lineup = PlayerLineup.find(params[:lineup_id])
     @players = Player.update(params[:players].keys, params[:players].values)
+
+    lineup.lineup_positions.each do |pos|
+      pos.check_and_move_mandatory
+    end
+
     @players.reject! { |p| p.errors.empty? }
     if @players.empty?
       redirect_to lineup

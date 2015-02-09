@@ -15,6 +15,23 @@ class LineupPosition < ActiveRecord::Base
     (self.player.matches_played >= 1 && self.position_changed?) ? true : false
   end
 
+  def locked?
+    match_difference = self.player.matches_played - self.player_match_count_at_change
+    if self.restrict_movement && (match_difference < 3)
+      true
+    else
+      false
+    end
+  end
+
+  def check_and_move_mandatory
+    unless self.locked?
+      if mandatory_move_required?
+        mandatory_move!
+      end
+    end
+  end
+
   private
     def set_move_restrictions
       if self.player.matches_played > 5
@@ -27,4 +44,32 @@ class LineupPosition < ActiveRecord::Base
         self.player_match_count_at_change = self.player.matches_played
       end
     end
+
+    def position_below
+      LineupPosition.where(player_lineup: self.player_lineup, position: self.position+1).first
+    end
+
+    def mandatory_move!
+      spot_below = position_below
+      new_position = spot_below.position
+      spot_below.position = self.position
+      self.position = new_position
+
+      spot_below.save
+      self.save
+    end
+
+    def win_percentage_differential(position)
+      position.player.win_percentage - self.player.win_percentage
+    end
+
+    def mandatory_move_required?
+      if position_below && (self.player.matches_played > 5)
+        differential = win_percentage_differential(position_below)
+        differential > 0.20 ? true : false
+      else
+        false
+      end
+    end
+
 end
