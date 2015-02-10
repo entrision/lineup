@@ -9,8 +9,11 @@ $(document).on "page:change", ->
     form_markup = $(this).data("fields")
     $('.position_fields').append(form_markup)
     $(this).hide()
+    fieldset = $('form fieldset').last()
 
-    $('form fieldset').last().find('.position_hidden').val($('fieldset').length)
+    $(fieldset).find('.position_hidden').val($('fieldset').length)
+    $(fieldset).find('.move_player').prop('disabled', false)
+    $(fieldset).addClass('new')
     event.preventDefault()
 
   $('.position_fields').on 'click', '.move_player', (event) ->
@@ -31,14 +34,16 @@ $(document).on "page:change", ->
 
     if direction == "up"
       $(target).before(original)
-      $(original).find('[data-direction="up"]').prop('disabled', true)
-      $(original).find('[data-direction="down"]').prop('disabled', false)
-      $(target).find('[data-direction="down"]').prop('disabled', true)
-      $(target).find('[data-direction="up"]').prop('disabled', false)
+      unless $(target).hasClass('new')
+        $(original).find('[data-direction="up"]').prop('disabled', true)
+        $(original).find('[data-direction="down"]').prop('disabled', false)
+        $(target).find('[data-direction="down"]').prop('disabled', true)
+        $(target).find('[data-direction="up"]').prop('disabled', false)
     else
       $(target).after(original)
-      $(original).find('[data-direction="up"]').prop('disabled', false)
-      $(original).find('[data-direction="down"]').prop('disabled', true)
-      $(target).find('[data-direction="down"]').prop('disabled', false)
-      $(target).find('[data-direction="up"]').prop('disabled', true)
+      unless $(target).hasClass('new')
+        $(original).find('[data-direction="up"]').prop('disabled', false)
+        $(original).find('[data-direction="down"]').prop('disabled', true)
+        $(target).find('[data-direction="down"]').prop('disabled', false)
+        $(target).find('[data-direction="up"]').prop('disabled', true)
 

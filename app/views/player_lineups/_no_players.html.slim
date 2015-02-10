@@ -1,9 +1,7 @@
 - if @players.any?
   p
-    | No players in your lineup :(
-    br
-    | Add some to your lineup
+    | No players in your lineup :(  #{ link_to "Add players to this lineup.", edit_player_lineup_path }
 
 - else
   p
-    |  Create some players!
+    | You do not yet have players to add to this lineup.  #{ link_to "Create some players!", new_player_path }

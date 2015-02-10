@@ -62,11 +62,15 @@ class LineupPosition < ActiveRecord::Base
     end
 
     def position_below
-      LineupPosition.where(player_lineup: self.player_lineup, position: self.position+1).first
+      if self.position
+        LineupPosition.where(player_lineup: self.player_lineup, position: self.position+1).first
+      end
     end
 
     def position_above
-      LineupPosition.where(player_lineup: self.player_lineup, position: self.position-1).first
+      if self.position
+        LineupPosition.where(player_lineup: self.player_lineup, position: self.position-1).first
+      end
     end
 
     def mandatory_move!
