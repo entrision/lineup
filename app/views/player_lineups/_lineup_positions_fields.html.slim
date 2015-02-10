@@ -1,11 +1,13 @@
-fieldset
-  h4 = f.object.player.name
-  h6 Win percentage: #{f.object.player.win_percentage}
+fieldset class=('locked' if f.object.locked?)
+  h4#player_name
+    = f.object.player.name
+  span
+    |   Win %: #{f.object.player.win_percentage}
   = f.hidden_field :player_id
   = f.hidden_field :position, class: "position_hidden"
-  = button_tag "Move Up", class: "move_player", data: {direction: "up"}
+  = button_tag "Move Up", class: "move_player button-sm", data: {direction: "up"}, type: 'button', disabled: (true unless f.object.can_move_up?)
   |   
-  = button_tag "Move Down", class: "move_player", data: {direction: "down"}
+  = button_tag "Move Down", class: "move_player button-sm", data: {direction: "down"}, type: 'button', disabled: (true unless f.object.can_move_down?)
   = f.label :_destroy, "Remove" do
     = f.check_box :_destroy
     span Remove from lineup

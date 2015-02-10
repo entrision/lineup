@@ -6,12 +6,12 @@ h2 Showing #{ @player.name }
   p No match results for this player.
 
 - if @player.player_lineups.empty?
-  p This player does'nt belong to any lineups #{ link_to "Add to a lineup", player_lineups_path }
+  p This player doesn't belong to any lineups.  #{ link_to "Add to a lineup", player_lineups_path }
 - else
   p
     | #{@player.name} is in these lineups:
     ul
       - @player.player_lineups.each do |lineup|
         li = link_to lineup.title, lineup
-
-= link_to "Edit player", edit_player_path
+p
+  | #{link_to "Edit player", edit_player_path} | #{link_to "Remove player", @player, method: :delete, data: { confirm: "Really delete #{@player.name}?" }}

@@ -8,6 +8,10 @@ html
 
   body
     = render "refills/navigation"
-    .container
-      = notice
-      = yield
+    section.container
+      - if notice
+        .flash-notice = notice
+      - if alert
+        .flash-alert = alert
+      .wrapper
+        = yield

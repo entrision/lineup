@@ -6,7 +6,7 @@ h2 Enter Match Results for Lineup
     .player_row
       = fields_for "players[]", player do |f|
         .left
-          = player.name
+          strong = player.name
         .right
           span Loss
           = f.label :win_loss, class: "label-switch" do

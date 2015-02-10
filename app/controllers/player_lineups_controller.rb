@@ -12,6 +12,7 @@ class PlayerLineupsController < ApplicationController
   end
 
   def show
+    @players = current_coach.players
   end
 
   def edit
@@ -32,6 +33,7 @@ class PlayerLineupsController < ApplicationController
     if @lineup.update(lineup_params)
       redirect_to @lineup, notice: "Lineup successfully updated."
     else
+      @pnil = Player.where.not(id: LineupPosition.select("player_id").where(player_lineup_id: @lineup.id)).where(coach: current_coach)
       render :edit
     end
   end

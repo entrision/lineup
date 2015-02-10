@@ -2,7 +2,7 @@ fieldset {
   background: lighten($base-border-color, 10);
   border: $base-border;
   margin: 0 0 ($base-spacing / 2) 0;
-  padding: $base-spacing;
+  padding: $base-spacing / 2;
 }
 
 input,

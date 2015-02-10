@@ -1,20 +1,19 @@
-h2 Lineup: #{@lineup.title}
+h2#lineup Lineup: #{@lineup.title}
 
-p
-  = link_to "Enter Match Results", edit_multiple_path(@lineup)
-
-h4 Players:
 - if @lineup.players.any?
-  ul
-    .player_row
-      - for player in @lineup.players
-        li
-          .left
-            = link_to player.name, player
-          .right
-            |  Wins: #{player.win}  Losses: #{ player.loss }
-            |  | Win %: #{player.win_percentage}
+  = link_to "Enter Match Results", edit_multiple_path(@lineup), class: 'match_results button'
+  h4
+    | Players:
+  ol
+    - for position in @lineup.lineup_positions
+      li.lineup_list class=('locked' if position.locked?)
+        strong = link_to position.player.name, position.player
+        span
+          |  Wins: #{ position.player.win }  Losses: #{ position.player.loss }
+          |  | Win %: #{ position.player.win_percentage }
+
+- else
+  = render "no_players"
 
 p
-  br
-  | #{ link_to "Edit Lineup", edit_player_lineup_path} | #{ link_to 'Delete Lineup', @lineup, method: :delete, data: { confirm: "Are you sure you want to delete #{@lineup.title}?" } }
+  | #{ link_to "Change Lineup", edit_player_lineup_path} | #{ link_to 'Remove Lineup', @lineup, method: :delete, data: { confirm: "Are you sure you want to delete #{@lineup.title}?" } }

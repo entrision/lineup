@@ -14,7 +14,7 @@
     = f.fields_for :lineup_positions do |pf|
       = render "lineup_positions_fields", f: pf
 
-  - if @pnil
+  - if @pnil.any?
     p Add Player(s) to Lineup
     - @pnil.each do |player|
       p #{ link_to_add_player player.name, f, player }

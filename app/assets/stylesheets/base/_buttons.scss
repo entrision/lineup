@@ -8,3 +8,26 @@ input[type="submit"] {
   vertical-align: middle;
   white-space: nowrap;
 }
+
+.button-sm {
+  @extend %button;
+  @include appearance(none);
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  font-size: 0.75em;
+  padding: 0.59em 0.75em;
+}
+
+.button {
+  @extend %button;
+  @include appearance(none);
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+

@@ -1,5 +1,10 @@
 $(document).on "page:change", ->
 
+  $('fieldset.locked').each ->
+    $(this).find('.move_player').prop('disabled', true)
+    $(this).prevAll('fieldset').first().find('[data-direction="down"]').prop('disabled', true)
+    $(this).nextAll('fieldset').first().find('[data-direction="up"]').prop('disabled', true)
+
   $('.add_player').on 'click', (event) ->
     form_markup = $(this).data("fields")
     $('.position_fields').append(form_markup)
@@ -26,5 +31,14 @@ $(document).on "page:change", ->
 
     if direction == "up"
       $(target).before(original)
+      $(original).find('[data-direction="up"]').prop('disabled', true)
+      $(original).find('[data-direction="down"]').prop('disabled', false)
+      $(target).find('[data-direction="down"]').prop('disabled', true)
+      $(target).find('[data-direction="up"]').prop('disabled', false)
     else
       $(target).after(original)
+      $(original).find('[data-direction="up"]').prop('disabled', false)
+      $(original).find('[data-direction="down"]').prop('disabled', true)
+      $(target).find('[data-direction="down"]').prop('disabled', false)
+      $(target).find('[data-direction="up"]').prop('disabled', true)
+

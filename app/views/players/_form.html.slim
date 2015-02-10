@@ -9,10 +9,12 @@
   = f.label :name
   = f.text_field :name
 
-  = f.label :win, "Wins"
-  = f.number_field :win, min: 0
-
-  = f.label :loss, "Losses"
-  = f.number_field :loss, min: 0
-
+  .player_record
+    = f.label :win, "Wins"
+    = f.number_field :win, min: 0
+    = f.label :loss, "Losses"
+    = f.number_field :loss, min: 0
+  = link_to "Adjust Record", "#", id: "show_record_form"
+  br
+  br
   = f.submit

@@ -32,6 +32,22 @@ class LineupPosition < ActiveRecord::Base
     end
   end
 
+  def can_move_up?
+    if position_above
+      position_above.player.win_percentage < self.player.win_percentage ? true : false
+    else
+      false # no position to move to
+    end
+  end
+
+  def can_move_down?
+    if position_below
+      position_below.player.win_percentage > self.player.win_percentage ? true : false
+    else
+      false
+    end
+  end
+
   private
     def set_move_restrictions
       if self.player.matches_played > 5
@@ -47,6 +63,10 @@ class LineupPosition < ActiveRecord::Base
 
     def position_below
       LineupPosition.where(player_lineup: self.player_lineup, position: self.position+1).first
+    end
+
+    def position_above
+      LineupPosition.where(player_lineup: self.player_lineup, position: self.position-1).first
     end
 
     def mandatory_move!

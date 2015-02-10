@@ -1,0 +1,25 @@
+h5 .match_results {
+  margin: 20px 0 20px 0;
+}
+
+h4 span {
+  font-size: 0.80em;
+  font-weight: normal;
+}
+
+ol li.locked {
+  @extend %flash-alert;
+  padding: 0px;
+  margin: 0px;
+  font-weight: normal;
+}
+
+li.lineup_list {
+  @include outer-container;
+
+  strong { @include span_columns(4); }
+  span {
+    @include span_columns(8);
+    @include omega();
+  }
+}
