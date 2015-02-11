@@ -33,19 +33,27 @@ class LineupPosition < ActiveRecord::Base
   end
 
   def can_move_up?
-    if position_above
+    if position_above && matches_played?
       position_above.player.win_percentage < self.player.win_percentage ? true : false
+    elsif !matches_played?
+      true
     else
       false # no position to move to
     end
   end
 
   def can_move_down?
-    if position_below
+    if position_below && matches_played?
       position_below.player.win_percentage > self.player.win_percentage ? true : false
+    elsif !matches_played?
+      true
     else
       false
     end
+  end
+
+  def matches_played?
+    self.player.matches_played > 0 ? true : false
   end
 
   private

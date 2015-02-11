@@ -1,4 +1,4 @@
-fieldset class=('locked' if f.object.locked?)
+fieldset class=('locked' if f.object.locked?; 'new' unless f.object.matches_played?)
   h4#player_name
     = f.object.player.name
   span
