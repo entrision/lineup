@@ -1,32 +1,27 @@
 class Player < ActiveRecord::Base
+
   has_many   :player_lineups, through: :lineup_positions
   has_many   :lineup_positions
+
   belongs_to :coach
 
-  validates_presence_of :name
+  validates :name, presence: true
 
   def matches_played
-    self.win + self.loss
+    [win, loss].sum
   end
 
   def matches_played?
-    self.matches_played > 0 ? true : false
+    matches_played > 0
   end
 
   def win_percentage
-    if self.matches_played.zero?
-      nil
-    else
-      self.win.fdiv(self.matches_played).round(3)
-    end
+    return nil if matches_played.zero?
+    win.fdiv(matches_played).round(3)
   end
 
   def win_loss=(value)
-    if value.to_i == 1
-      self.win += 1
-    else
-      self.loss += 1
-    end
+    value > 0 ? self.win += value : self.loss += 1
   end
 
   def win_loss
