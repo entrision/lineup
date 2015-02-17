@@ -1,7 +1,7 @@
 h2 Showing #{ @player.name }
 
 - if @player.win_percentage
-  p Win Percentage: #{@player.win_percentage}
+  p Win Percentage: #{decimal_to_percent(@player.win_percentage)}
 - else
   p No match results for this player.
 
