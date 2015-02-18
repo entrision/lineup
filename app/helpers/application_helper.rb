@@ -8,4 +8,12 @@ module ApplicationHelper
     link_to(name, '#', class: "add_player", data: { id: player.id, fields: fields.gsub("\n", "") } )
   end
 
+  def decimal_to_percent(number)
+    percent(number * 100)
+  end
+
+  def percent(number)
+    number_to_percentage(number, precision: 1)
+  end
+
 end

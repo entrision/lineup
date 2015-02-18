@@ -10,7 +10,7 @@ h2#lineup Lineup: #{@lineup.title}
         strong = link_to position.player.name, position.player
         span
           |  Wins: #{ position.player.win }  Losses: #{ position.player.loss }
-          |  | Win %: #{ position.player.win_percentage }
+          |  | Win %: #{ decimal_to_percent(position.player.win_percentage) }
 
 - else
   = render "no_players"
