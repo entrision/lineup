@@ -4,15 +4,21 @@ class LineupPosition < ActiveRecord::Base
 
   before_save :set_move_restrictions
   before_save :set_match_count_at_change
+
   validates_presence_of :player
   validates_uniqueness_of :player_id, scope: :player_lineup
-  validates_with LineupMovementValidator, on: :update, if: :movement_validation_needed?
+  validates_with BaseMovementValidator, on: :update, if: :basic_validation_needed?
+  validates_with ExtendedMovementValidator, on: :update, if: :extended_validation_needed?
 
   default_scope { order('position') }
 
-  def movement_validation_needed?
+  def basic_validation_needed?
     # players have played at least 1 match, and the position has changed
     (self.player.matches_played >= 1 && self.position_changed?) ? true : false
+  end
+
+  def extended_validation_needed?
+    (self.player.matches_played >= 6 && self.position_changed?) ? true : false
   end
 
   def locked?
