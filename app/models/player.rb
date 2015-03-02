@@ -5,7 +5,7 @@ class Player < ActiveRecord::Base
 
   belongs_to :coach
 
-  validates :name, presence: true
+  validates :name, :coach, presence: true
 
   def matches_played
     [win, loss].sum
