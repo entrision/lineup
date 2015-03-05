@@ -15,6 +15,17 @@ RSpec.describe Player, type: :model do
     end
   end
 
+  describe "#coach" do
+    before do
+      player.coach = nil
+      player.valid?
+    end
+
+    it 'assigns an error to coach' do
+      expect(player.errors.has_key?(:coach)).to be_truthy
+    end
+  end
+
   describe "#matches_played" do
     it 'has 11 matches_played' do
       expect(player.matches_played).to be(11)

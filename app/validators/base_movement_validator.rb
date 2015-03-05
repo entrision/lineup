@@ -1,5 +1,7 @@
-class LineupMovementValidator < ActiveModel::Validator
+class BaseMovementValidator < ActiveModel::Validator
 
+  # validates match has been played
+  # validates win %
   def validate(record)
     unless moved_by_one?(record) # only move 1 position at a time
       record.errors[:position] << "cannot move more than one position"
@@ -11,10 +13,6 @@ class LineupMovementValidator < ActiveModel::Validator
 
     unless match_played_since_move?(record)
       record.errors[:position] << "must play a match before moving again"
-    end
-
-    unless position_shift_wait_observed?(record)
-      record.errors[:position] << "must play at least 3 matches at position"
     end
   end
 
@@ -49,10 +47,4 @@ class LineupMovementValidator < ActiveModel::Validator
   def moving_up?(record)
     record.position < record.position_was
   end
-
-  def position_shift_wait_observed?(record)
-    games = record.player.matches_played - record.player_match_count_at_change
-    !(record.restrict_movement && games < 3)
-  end
-
 end
