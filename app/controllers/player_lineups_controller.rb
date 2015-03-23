@@ -1,6 +1,7 @@
 class PlayerLineupsController < ApplicationController
   before_action :authenticate_coach!
   before_action :set_lineup, only: [:show, :update, :edit, :destroy]
+  before_action :set_players_not_in_lineup, only: [:update, :edit]
 
   def index
     @lineups = current_coach.player_lineups
@@ -16,24 +17,25 @@ class PlayerLineupsController < ApplicationController
   end
 
   def edit
-    @pnil = Player.where.not(id: LineupPosition.select("player_id").where(player_lineup_id: @lineup.id)).where(coach: current_coach)
   end
 
   def create
     @lineup = PlayerLineup.new(lineup_params)
+    @pnil = current_coach.players
 
     if @lineup.save
-      redirect_to @lineup, notice: "Lineup created."
+      redirect_to @lineup, flash[:success] = "Lineup created."
     else
+      flash[:error] = ""
+      @lineup.errors.full_messages.each { |message| flash[:error] << message }
       render :new
     end
   end
 
   def update
     if @lineup.update(lineup_params)
-      redirect_to @lineup, notice: "Lineup successfully updated."
+      redirect_to @lineup, flash[:success] = "Lineup successfully updated."
     else
-      @pnil = Player.where.not(id: LineupPosition.select("player_id").where(player_lineup_id: @lineup.id)).where(coach: current_coach)
       render :edit
     end
   end
@@ -50,5 +52,9 @@ class PlayerLineupsController < ApplicationController
 
     def set_lineup
       @lineup = PlayerLineup.find(params[:id])
+    end
+
+    def set_players_not_in_lineup
+      @pnil = Player.where.not(id: LineupPosition.select("player_id").where(player_lineup_id: @lineup.id)).where(coach: current_coach)
     end
 end

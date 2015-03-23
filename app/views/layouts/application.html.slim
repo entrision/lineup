@@ -9,9 +9,13 @@ html
   body
     = render "refills/navigation"
     section.container
-      - if notice
-        .flash-notice = notice
-      - if alert
-        .flash-alert = alert
+      - if flash[:notice]
+        .flash-notice = flash[:notice]
+      - if flash[:alert]
+        .flash-alert = flash[:alert]
+      - if flash[:error]
+        .flash-error = flash[:error]
+      - if flash[:success]
+        .flash-success = flash[:success]
       .wrapper
         = yield
