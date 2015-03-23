@@ -5,7 +5,7 @@ class Player < ActiveRecord::Base
 
   belongs_to :coach
 
-  validates :name, :coach, presence: true
+  validates :name, :coach, :win, :loss, presence: true
 
   def matches_played
     [win, loss].sum
@@ -16,7 +16,7 @@ class Player < ActiveRecord::Base
   end
 
   def win_percentage
-    return nil if matches_played.zero?
+    return 0 if matches_played.zero?
     win.fdiv(matches_played).round(3)
   end
 

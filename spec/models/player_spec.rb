@@ -52,4 +52,15 @@ RSpec.describe Player, type: :model do
     end
   end
 
+  describe "win" do
+    before do
+      player.win = nil
+      player.valid?
+    end
+
+    it 'assigns an error to win' do
+      expect(player.errors.has_key?(:win)).to be_truthy
+    end
+  end
+
 end
