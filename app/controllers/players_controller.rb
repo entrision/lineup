@@ -20,8 +20,10 @@ class PlayersController < ApplicationController
     @player = Player.new(player_params)
 
     if @player.save
-      redirect_to players_url, notice: "Player created."
+      redirect_to players_url, flash[:success] = "Player created."
     else
+      flash[:error] = ''
+      @player.errors.full_messages.each { |message| flash[:error] << message }
       render :new
     end
   end
