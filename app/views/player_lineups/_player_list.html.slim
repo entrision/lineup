@@ -1,0 +1,10 @@
+= link_to "Enter Match Results", edit_multiple_path(@lineup), class: 'match_results button'
+h4
+  | Players:
+ol
+  - for position in @lineup.lineup_positions
+    li.lineup_list class=('locked' if position.locked?)
+      h4 = link_to position.player.name, position.player
+      span
+        |  Wins: #{ position.player.win }  Losses: #{ position.player.loss }
+        |  | Win %: #{ decimal_to_percent(position.player.win_percentage) }
