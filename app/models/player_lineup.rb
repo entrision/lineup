@@ -6,6 +6,7 @@ class PlayerLineup < ActiveRecord::Base
   has_many   :lineup_positions, dependent: :destroy
 
   accepts_nested_attributes_for :lineup_positions, allow_destroy: true
+  validates_associated :lineup_positions
 
   validates :title, presence: true
 

@@ -6,7 +6,7 @@ class LineupPosition < ActiveRecord::Base
   before_save :set_match_count_at_change
 
   validates_presence_of :player
-  validates_uniqueness_of :player_id, scope: :player_lineup
+  validates_uniqueness_of :player_id, scope: :player_lineup, message: "cannot be listed twice in Lineup"
   validates_with BaseMovementValidator, on: :update, if: :basic_validation_needed?
   validates_with ExtendedMovementValidator, on: :update, if: :extended_validation_needed?
 
